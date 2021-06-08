@@ -17,7 +17,7 @@ const images = [
 
   const imagesGallery = images.map(image => `<li><img src="${image.url}" alt="${image.alt}" width = 400 height = 300></img></li>`);
 
-  galleryRef.insertAdjacentHTML('afterbegin', `${imagesGallery[0]}` + `${imagesGallery[1]}`+`${imagesGallery[2]}`);
+  galleryRef.insertAdjacentHTML('afterbegin', imagesGallery.join(' '));
 
   galleryRef.style.listStyle = 'none';
 
