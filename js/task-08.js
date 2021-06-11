@@ -19,10 +19,10 @@ function createBoxes(amount) {
     for (let i = 0; i <= amount; i += 1) {
         divEl = document.createElement('div');
         console.log(divEl);
+        return divEl;
     }
-
-    return divEl;
   };
+
 
 buttonRender.addEventListener('click', createBoxes);
 
