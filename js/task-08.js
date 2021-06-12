@@ -1,31 +1,60 @@
-const counterEl = document.querySelector('input');
+const counterRef = document.querySelector('#controls input');
 
-const buttonRender = document.querySelector('[data-action="render"]');
+const boxesContainer = document.querySelector('#boxes');
 
-const buttonDestroy = document.querySelector('[data-action="destroy]');
+const renderBtn = document.querySelector('[data-action="render"]');
 
-const boxesEl = document.querySelector('#boxes');
+const destroyBtn = document.querySelector('[data-action="destroy"]');
 
-function onInputChange(event) {
-    let amount = event.currentTarget.value;
-    console.log(amount);
+const INITIAL_ITEM_SIZE = 30;
+
+const itemSize = {
+    value: INITIAL_ITEM_SIZE,
+    increment() {
+    this.value += 10;
+    },
+    reset() {
+    this.value = INITIAL_ITEM_SIZE;
+    },
 };
 
-counterEl.addEventListener('input', onInputChange);
+renderBtn.addEventListener('click', createBoxes);
 
+destroyBtn.addEventListener('click', destroyBoxes);
 
-function createBoxes(amount) {
+function createBoxes() {
+    const amount = counterRef.value;
+    const items =[];
 
-    for (let i = 0; i <= amount; i += 1) {
-        divEl = document.createElement('div');
-        console.log(divEl);
-        return divEl;
+    for (let i = 0; i < amount; i += 1) {
+        const divItem = document.createElement('div');
+        divItem.style.backgroundColor = getRandomColor();
+        divItem.style.height = `${itemSize.value}px`;
+        divItem.style.width = `${itemSize.value}px`;
+        itemSize.increment();
+
+        items.push(divItem);
+
     }
-  };
 
+    boxesContainer.append(...items);
+}
 
-buttonRender.addEventListener('click', createBoxes);
+function getRandom(min, max) {
+    return Math.ceil(Math.random() * (max - min) + min);
+}
 
+function getRandomColor() {
+  const red = getRandom(0, 255);
+  const green = getRandom(0, 255);
+  const blue = getRandom(0, 255);
+  return `rgb(${red}, ${green}, ${blue})`;
+}
+
+function destroyBoxes() {
+    boxesContainer.innerHTML = '';
+    itemSize.reset();
+}
 
 
 
